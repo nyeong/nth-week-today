@@ -1,0 +1,47 @@
+html {
+    font-size: 18px;
+}
+
+body {
+    background: #0fb9b1;
+    color: rgba(255, 255, 255, .8);
+}
+
+a, a:visited, a:focus, a:active {
+    color: inherit;
+}
+
+.wrapper {
+    max-width: 22em;
+    margin: 4em auto 0 auto;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.header, .footer, .box {
+    margin: 0 0.8em;
+
+}
+
+.box {
+    padding: 2em;
+    border: .5em solid rgba(255, 255, 255, 7);
+}
+
+.top {
+    text-align: left;
+    font-size: 1.8em;
+}
+
+.mid {
+    text-align: center;
+    font-size: 4em;
+    color: white;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.bot {
+    text-align: right;
+    font-size: 1.8em;
+}
