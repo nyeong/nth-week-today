@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <meta property="og:title" content="오늘은 몇 주차?">
-    <meta property="og:description" content="오늘은 올해의 몇 번째 주인가요?">
+    <meta property="og:title" content="<%= @og_title %>">
+    <meta property="og:description" content="<%= @og_description %>">
+    <meta property="og:type" content="<%= @og_type %>">
+    <meta property="og:url" content="<%= @og_url %>">
+    <meta property="og:image" content="<%= @og_image %>">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="<%= @og_url %>">
+    <meta name="twitter:title" content="<%= @og_title %>">
+    <meta name="twitter:description" content="<%= @og_description %>">
+    <meta name="twitter:image" content="<%= @og_image %>">
+
+    <meta name="google-site-verification" content="lQYzouzyNJRvq4x6ywvKZ2OkDRb9sRi1YrrXSxXboV0" />
 
     <link rel="stylesheet" href="style.css">
     <title>오늘은 몇 주차?</title>

@@ -1,0 +1,55 @@
+name: Build Pages
+
+on:
+  schedule:
+  - cron: 0 0 * * 0
+  workflow_dispatch:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+
+    - uses: actions/checkout@v3
+    - name: Set up Elixir # for generate open graphs
+      uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+      with:
+        elixir-version: '1.12.3'
+        otp-version: '24.1'
+    - name: Set up NodeJS # for generate thumbnail image
+      uses: actions/setup-node@v3.5.0
+      with:
+        cache: 'npm'
+    - run: npm ci
+    - name: Restore dependencies cache
+      uses: actions/cache@v3
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: build
+      run: elixir bin/build.exs
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: 'dest'
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
