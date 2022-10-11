@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <meta property="og:title" content="오늘은 몇 주차?">
-    <meta property="og:description" content="오늘은 올해의 몇 번째 주인가요?">
+    <meta property="og:title" content="<%= @og_title %>">
+    <meta property="og:description" content="<%= @og_description %>">
 
     <meta name="google-site-verification" content="lQYzouzyNJRvq4x6ywvKZ2OkDRb9sRi1YrrXSxXboV0" />
 
