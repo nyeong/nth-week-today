@@ -1,0 +1,140 @@
+:root {
+    --background-hex: #F1D3BC;
+    --color-hsl: hsl(18, 14%, 22%);
+    --box-width: 80vw;
+    --box-height: 80vw;
+}
+
+@media (min-width: 500px) {
+    :root {
+    --box-width: 20rem;
+    --box-height: 18rem;
+    }
+}
+
+html {
+    font-size: 18px;
+}
+
+body {
+    background: var(--background-hex);
+    color: var(--color-hsl);
+}
+
+a, a:visited, a:focus, a:active {
+    color: inherit;
+}
+
+body {
+    margin: 0;
+    padding: .5rem 1rem;
+}
+
+.wrapper {
+    padding-top: 20vh;
+    text-align: center;
+} 
+
+.box, .top, .bottom {
+    margin-left: auto;
+    margin-right: auto;
+    width: var(--box-width);
+    box-sizing: border-box;
+}
+
+.waves {
+    position: absolute;
+    bottom: -15%;
+    z-index: -2;
+    left: 0;
+    right: 0;
+    mix-blend-mode: difference;
+    transition: .5s bottom ease-in-out;
+}
+.waves use {
+    animation: wave 12s infinite cubic-bezier(0.55, 0.5, 0.45, 0.5) ;
+}
+
+.waves use:nth-child(1) {
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+.waves use:nth-child(2) {
+    animation-delay: -1s;
+    animation-duration: 14s;
+}
+.waves use:nth-child(3) {
+    animation-delay: -2s;
+    animation-duration: 12s;
+}
+.waves use:nth-child(4) {
+    animation-delay: -3s;
+    animation-duration: 14s;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(-90px);
+    }
+    100% {
+        transform: translateX(87px);
+    }
+}
+
+.fill {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    height: var(--box-height);
+    bottom: 0;
+    top: 115%;
+    background-color: white;
+    z-index: -1;
+    mix-blend-mode: difference;
+    transition: .5s top ease-in-out;
+}
+
+.box {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+    border: .5rem solid var(--color-hsl);
+    height: var(--box-height);
+    align-items: center;
+    justify-content: center;
+}
+
+.top, .bottom {
+    font-size: 1.2em;
+}
+
+.top {
+    text-align: left;
+}
+
+.bottom {
+    text-align: right;
+}
+
+.mid {
+    z-index: 1;
+    color: white;
+    mix-blend-mode: difference;
+}
+
+.mid .week-number {
+    font-size: 3.3rem;
+    font-weight: bolder;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: right;
+    padding: .5rem 1rem;
+}

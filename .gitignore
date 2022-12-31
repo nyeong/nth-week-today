@@ -1,6 +1,1 @@
-_site
-dest
 .DS_Store
-
-node_modules
-.elixir_ls/
