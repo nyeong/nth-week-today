@@ -55,7 +55,6 @@ function ordinalDays(date) {
             ordinalTable[i] += 1
         }
     }
-    console.log(ordinalTable)
 
     return ordinalTable[date.getMonth()] + date.getDate()
 }
@@ -68,7 +67,8 @@ function ordinalDays(date) {
 function weekNumber(date) {
     const ordinal_days = ordinalDays(date)
     const current_year = date.getFullYear()
-    const weekday = date.getDay()
+    // weekday: 월요일-일요일 = 1-7
+    const weekday = date.getDay() ? date.getDay() : 7
     const week = Math.floor((ordinal_days - weekday + 10) / 7)
 
     if (week < 1) { return lastWeek(current_year - 1) }
