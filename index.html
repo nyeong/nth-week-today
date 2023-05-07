@@ -27,38 +27,30 @@
 
 <body>
     <div class="wrapper">
+        <main class="title">
+            <span class="first">오늘은</span>
+            <span class="week-number"><span id="week-number"></span>주차</span>
+            <span class="last">입니다!</span>
+        </main>
 
-        <div class="top">오늘은</div>
-        <div class="box">
-            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-                <defs>
-                    <path id="gentle-wave"
-                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-                </defs>
-                <g class="parallax">
-                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
-                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
-                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
-                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
-                </g>
-            </svg>
-            <div class="fill"></div>
-
-            <div class="mid">
-                <div class="week-number">
-                    <span id="week-number"></span>주차
-                </div>
-                <div class="date">
-                    <span id="date"></span>
-                </div>
+        <div class="progress-bar">
+            <div class="bar">
+                <span class="progress"></span>
+                <span id="week-percentage"></span>
             </div>
+            <div class="description">이번주</div>
         </div>
-        <div class="bottom">입니다!</div>
+
+        <ul>
+            <li>오늘은 <date id="today"></date>입니다.</li>
+            <li>올해의 마지막 주는 <span id="last-week"></span>번째 주입니다.</li>
+            <li>올해가 <span id="year-percentage"></span> 지났습니다.</li>
+        </ul>
     </div>
 
+
     <footer>
-        <a target="_blank" href="https://github.com/nyeong/nth-week-today">소스코드 보기</a>
+        <a href="https://github.com/nyeong/nth-week-today">소스코드 보기</a>
     </footer>
 
     <script src="script.js"></script>

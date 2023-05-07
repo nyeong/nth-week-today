@@ -1,8 +1,5 @@
 'use strict'
 
-const week_number_span = document.getElementById('week-number')
-const date_span = document.getElementById('date')
-
 /**
  * 주어진 년도가 윤년인지 반환합니다.
  * @param {number} year 
@@ -76,13 +73,70 @@ function weekNumber(date) {
     else { return week }
 }
 
+/**
+ * 0과 1 사이의 소수를 받아 퍼센트가 붙은 문자열로 표현합니다.
+ * @param {number} float
+ * @returns {string}
+ */
+function toPercentage(float) {
+    return (float * 100).toFixed(1) + "%"
+}
+
+/**
+ * 주어진 날이 해당 주에서 어느정도 지났는지 구합니다.
+ * @param {number} float
+ * @returns {number} 0~1 사이의 소수.
+ */
+function getPercentageOfWeek(date) {
+    // weekday: 월요일-일요일 = 1-7
+    const weekday = date.getDay() ? date.getDay() : 7
+
+    const startOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - weekday + 1)
+    const endOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() + (7 - weekday), 23, 59, 59, 99)
+
+    const totalDays = endOfWeek - startOfWeek
+    const elpasedDays = date - startOfWeek
+
+    return elpasedDays / totalDays
+}
+
+/**
+ * 주어진 날을 'YYYY년 m월 d일 0요일' 꼴로 바꿉니다.
+ * @param {Date} date
+ * @returns {string} 'YYYY년 m월 d일 0요일' 형식의 문자열
+ */
+function formatDate(date) {
+    const weekday_title = ['', '월', '화', '수', '목', '금', '토', '일']
+    // weekday: 월요일-일요일 = 1-7
+    const weekday = date.getDay() ? date.getDay() : 7
+    return date.getFullYear() + "년 " + (date.getMonth() + 1) + "월 " + date.getDate() + "일 " + weekday_title[weekday] +"요일"
+}
+
+/**
+ * 주어진 날을 기반으로 DOM에 정보를 채워 넣습니다.
+ * @param {Date} date
+ * @returns {undefined}
+ */
 function renderPage(date) {
     const week_number = weekNumber(date)
 
-    week_number_span.innerText = week_number
-    date_span.innerText = date.toLocaleString()
+    const week_number_dom = document.getElementById('week-number')
+    week_number_dom.innerText = week_number
 
-    setWaveHeight(getYearPercentage())
+    const week_percentage_dom = document.getElementById('week-percentage')
+    const week_progress_dom = document.querySelector('.progress-bar .progress')
+    const weekPercentage = getPercentageOfWeek(date)
+    week_progress_dom.style['width'] = weekPercentage * 100 + '%'
+    week_percentage_dom.innerText = toPercentage(weekPercentage)
+
+    const today_dom = document.getElementById('today')
+    today_dom.innerText = formatDate(date)
+
+    const last_week_dom = document.getElementById('last-week')
+    last_week_dom.innerText = lastWeek(date.getYear())
+
+    const year_percentage_dom = document.getElementById('year-percentage')
+    year_percentage_dom.innerText = toPercentage(getYearPercentage())
 }
 
 /**
@@ -97,32 +151,9 @@ function getYearPercentage() {
     return (now - start) / (end - start)
 }
 
-/**
- * Set the height of the wave in `.box`.
- * @param {number} percentage - between [0, 1]
- */
-function setWaveHeight(percentage) {
-    const waves = document.getElementsByClassName('waves')[0]
-    const waves_percentage = percentage * 110 - 15
-    const fill = document.getElementsByClassName('fill')[0]
-    // const fill_percentage = (waves_percentage > 0 ? waves_percentage : 0)
-
-    waves.style.bottom = waves_percentage + '%'
-    fill.style.top = 100 - waves_percentage + '%'
-}
-
 document.addEventListener('DOMContentLoaded', function () {
-    const date = new Date()
-    renderPage(date)
+    renderPage(new Date())
     setInterval(function () {
-        const now = new Date()
-
-        date_span.innerText = now.toLocaleString()
-        setWaveHeight(getYearPercentage())
-
-        if (now.getDate != date.getDate) {
-            date = now
-            renderPage(date)
-        }
+        renderPage(new Date())
     }, 1000)
 })

@@ -1,140 +1,89 @@
 :root {
-    --background-hex: #F1D3BC;
-    --color-hsl: hsl(18, 14%, 22%);
-    --box-width: 80vw;
-    --box-height: 80vw;
+    --primary-color: #81A1C1;
+    --primary-color-rgb: 129,161,193;
+    --background-color: #4C566A;
+    --text-color: #ECEFF4;
 }
 
-@media (min-width: 500px) {
-    :root {
-    --box-width: 20rem;
-    --box-height: 18rem;
-    }
-}
-
-html {
-    font-size: 18px;
-}
-
-body {
-    background: var(--background-hex);
-    color: var(--color-hsl);
-}
-
-a, a:visited, a:focus, a:active {
-    color: inherit;
-}
-
-body {
-    margin: 0;
-    padding: .5rem 1rem;
-}
-
-.wrapper {
-    padding-top: 20vh;
-    text-align: center;
-} 
-
-.box, .top, .bottom {
-    margin-left: auto;
-    margin-right: auto;
-    width: var(--box-width);
+* {
     box-sizing: border-box;
 }
 
-.waves {
-    position: absolute;
-    bottom: -15%;
-    z-index: -2;
-    left: 0;
-    right: 0;
-    mix-blend-mode: difference;
-    transition: .5s bottom ease-in-out;
-}
-.waves use {
-    animation: wave 12s infinite cubic-bezier(0.55, 0.5, 0.45, 0.5) ;
+body {
+    background-color: var(--background-color);
+    color: #ECEFF4;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
-.waves use:nth-child(1) {
-    animation-delay: 0s;
-    animation-duration: 12s;
-}
-.waves use:nth-child(2) {
-    animation-delay: -1s;
-    animation-duration: 14s;
-}
-.waves use:nth-child(3) {
-    animation-delay: -2s;
-    animation-duration: 12s;
-}
-.waves use:nth-child(4) {
-    animation-delay: -3s;
-    animation-duration: 14s;
+.wrapper {
+    width: 100%;
+    max-width: 30rem;
+    margin: 10vh auto;
+    padding: 1rem 1rem;
 }
 
-@keyframes wave {
-    0% {
-        transform: translateX(-90px);
-    }
-    100% {
-        transform: translateX(87px);
-    }
-}
-
-.fill {
-    position: absolute;
-    content: '';
-    left: 0;
-    right: 0;
-    height: var(--box-height);
-    bottom: 0;
-    top: 115%;
-    background-color: white;
-    z-index: -1;
-    mix-blend-mode: difference;
-    transition: .5s top ease-in-out;
-}
-
-.box {
+.title {
+    padding: 1rem;
+    text-align: center;
+    line-height: 1.1;
+    font-size: 3rem;
+    font-weight: bold;
     display: flex;
-    position: relative;
-    overflow: hidden;
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-    border: .5rem solid var(--color-hsl);
-    height: var(--box-height);
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
 }
 
-.top, .bottom {
-    font-size: 1.2em;
-}
-
-.top {
+.title .first {
     text-align: left;
 }
 
-.bottom {
+.title .last {
     text-align: right;
 }
 
-.mid {
-    z-index: 1;
-    color: white;
-    mix-blend-mode: difference;
+.week-number {
+    font-size: 140%;
 }
 
-.mid .week-number {
-    font-size: 3.3rem;
-    font-weight: bolder;
+.progress-bar .bar {
+    overflow: hidden;
+    z-index: 2;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 2rem;
+    border-radius: 50px;
+    border: 1px solid var(--text-color);
+}
+
+.progress-bar .progress {
+    z-index: -10;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    content: '';
+    background: var(--primary-color);
+    box-shadow: 2px 14px 15px -7px rgba(var(--primary-color-rgb), 0.36);
+    transition: width 5s ease;
+}
+
+.progress-bar .description {
+    font-size: .9rem;
+    text-align: center;
+}
+
+ul {
+    padding-left: 1rem;
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: right;
-    padding: .5rem 1rem;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+footer a {
+    color: #81A1C1;
 }
