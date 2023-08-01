@@ -14,7 +14,7 @@ function isLeap(year) {
 
 /**
  * 주어진 년도의 마지막 요일을 반환합니다.
- * @param {number} year 
+ * @param {number} year
  * @returns {number} [0..6]. 0은 일요일, 6은 토요일.
  */
 function pYear(year) {
@@ -23,12 +23,11 @@ function pYear(year) {
         + Math.floor(year / 400)) % 7
 }
 
-/**ㅓ
+/**
  * 주어진 년도의 마지막 주수를 반환합니다.
  * 
- * 작년이 수요일로 끝나거나, 올해가 목요일로 끝났다면 53을, 그 외에는 52를 반환합니다.
- * Otherwise returns 52.
- * @param {number} year 
+ * 작년이 수요일로 끝났거나 올해가 목요일로 끝났다면 53을, 그 외에는 52를 반환합니다.
+ * @param {number} year
  * @returns {52 | 53}
  */
 function lastWeek(year) {
@@ -40,7 +39,7 @@ function lastWeek(year) {
 
 /**
  * 주어진 날짜가 올해의 몇번째 날인지 반환합니다.
- * @param {Date} date 
+ * @param {Date} date
  * @returns {number}
  */
 function ordinalDays(date) {
@@ -58,7 +57,7 @@ function ordinalDays(date) {
 
 /**
  * 주어진 날의 주수를 반환합니다.
- * @param {Date} date 
+ * @param {Date} date
  * @returns {number}
  */
 function weekNumber(date) {
