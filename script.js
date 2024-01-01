@@ -2,13 +2,13 @@
 
 /**
  * 주어진 년도가 윤년인지 반환합니다.
- * @param {number} year 
+ * @param {number} year
  * @returns {boolean}
  */
 function isLeap(year) {
     if (year % 400 == 0) { return true }
-    if (year % 100 == 0) { return false }
-    if (year % 4 == 0) { return true }
+    else if (year % 100 == 0) { return false }
+    else if (year % 4 == 0) { return true }
     return false
 }
 
@@ -25,7 +25,7 @@ function pYear(year) {
 
 /**
  * 주어진 년도의 마지막 주수를 반환합니다.
- * 
+ *
  * 작년이 수요일로 끝났거나 올해가 목요일로 끝났다면 53을, 그 외에는 52를 반환합니다.
  * @param {number} year
  * @returns {52 | 53}
@@ -45,14 +45,13 @@ function lastWeek(year) {
 function ordinalDays(date) {
     // index 0은 1월 0일의 누적 일수
     const ordinalTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
+    const leapOrdinalTable = ordinalTable.map((value, index) => index >= 2 ? value : value + 1)
 
     if (isLeap(date.getFullYear())) {
-        for (const i = 2; i < ordinalTable.length; i++) {
-            ordinalTable[i] += 1
-        }
+        return leapOrdinalTable[date.getMonth()] + date.getDate()
+    } else {
+        return ordinalTable[date.getMonth()] + date.getDate()
     }
-
-    return ordinalTable[date.getMonth()] + date.getDate()
 }
 
 /**
