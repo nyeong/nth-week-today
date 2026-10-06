@@ -17,10 +17,12 @@ function isLeap(year) {
  * @param {number} year
  * @returns {number} [0..6]. 0은 일요일, 6은 토요일.
  */
-function pYear(year) {
-    return (year + Math.floor(year / 4)
-        - Math.floor(year / 100)
-        + Math.floor(year / 400)) % 7
+function firstWeekday(year) {
+    const prevYear = year - 1
+
+    return (year + Math.floor(prevYear / 4)
+      - Math.floor(prevYear / 100)
+      + Math.floor(prevYear / 400)) % 7
 }
 
 /**
@@ -31,21 +33,19 @@ function pYear(year) {
  * @returns {52 | 53}
  */
 function lastWeek(year) {
-    if (pYear(year) == 4 || pYear(year - 1) == 3) {
-        return 53
-    }
-    return 52
+    const firstWeek = firstWeekday(year)
+    return firstWeek === 4 || (isLeap(year) && firstWeek === 3) ? 53 : 52
 }
 
 /**
- * 주어진 날짜가 올해의 몇번째 날인지 반환합니다.
+ * 주어진 날짜가 올해의 몇번째 날인지 반환합니다. 1월 1일의 ordinalDays 값은 1입니다.
  * @param {Date} date
  * @returns {number}
  */
 function ordinalDays(date) {
     // index 0은 1월 0일의 누적 일수
     const ordinalTable = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
-    const leapOrdinalTable = ordinalTable.map((value, index) => index >= 2 ? value : value + 1)
+    const leapOrdinalTable = ordinalTable.map((value, index) => index >= 2 ? value + 1 : value)
 
     if (isLeap(date.getFullYear())) {
         return leapOrdinalTable[date.getMonth()] + date.getDate()
@@ -82,7 +82,7 @@ function toPercentage(float) {
 
 /**
  * 주어진 날이 해당 주에서 어느정도 지났는지 구합니다.
- * @param {number} float
+ * @param {number} date
  * @returns {number} 0~1 사이의 소수.
  */
 function getPercentageOfWeek(date) {
@@ -90,12 +90,12 @@ function getPercentageOfWeek(date) {
     const weekday = date.getDay() ? date.getDay() : 7
 
     const startOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - weekday + 1)
-    const endOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() + (7 - weekday), 23, 59, 59, 99)
+    const endOfWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() + (7 - weekday), 23, 59, 59, 999)
 
     const totalDays = endOfWeek - startOfWeek
-    const elpasedDays = date - startOfWeek
+    const elapsedDays = date - startOfWeek
 
-    return elpasedDays / totalDays
+    return elapsedDays / totalDays
 }
 
 /**
@@ -131,7 +131,7 @@ function renderPage(date) {
     today_dom.innerText = formatDate(date)
 
     const last_week_dom = document.getElementById('last-week')
-    last_week_dom.innerText = lastWeek(date.getYear())
+    last_week_dom.innerText = lastWeek(date.getFullYear())
 
     const year_percentage_dom = document.getElementById('year-percentage')
     year_percentage_dom.innerText = toPercentage(getYearPercentage())
@@ -149,9 +149,18 @@ function getYearPercentage() {
     return (now - start) / (end - start)
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    renderPage(new Date())
-    setInterval(function () {
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function () {
         renderPage(new Date())
-    }, 1000)
-})
+        setInterval(function () {
+            renderPage(new Date())
+        }, 1000)
+    })
+}
+
+if (typeof module !== 'undefined') {
+    module.exports = {
+        isLeap, firstWeekday, lastWeek, ordinalDays, weekNumber,
+        toPercentage, getPercentageOfWeek, formatDate, getYearPercentage,
+    }
+}

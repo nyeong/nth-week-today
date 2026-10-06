@@ -6,3 +6,9 @@
 
 - [nyeong.github.io/nth-week-today](https://nyeong.github.io/nth-week-today)
 - [원리](https://h.nyeong.me/blog/2023-04-09-week-number)
+
+## 테스트
+
+```bash
+node --test script.test.js
+```
